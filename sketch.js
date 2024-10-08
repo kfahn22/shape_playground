@@ -16,7 +16,7 @@ let shapeMessage = null;
 
 function setup() {
   canvas = createCanvas(600, 600);
-  canvas.position(240, 75);
+  canvas.position(300, 75);
 
   // Add the dropdowns, sliders, and checkboxes
   addControls();

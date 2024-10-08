@@ -14,18 +14,13 @@ class AddControls {
       "Stroke Color"
     );
     this.strokedropdown = this.strokeDropdown.dropdown;
-    this.fillDropdown = new PaletteDropdown(
-      pos,
-      190,
-      "blue",
-      "Fill Color"
-    );
+    this.fillDropdown = new PaletteDropdown(pos, 190, "blue", "Fill Color");
     this.filldropdown = this.fillDropdown.dropdown;
     // Create an instance of the SliderGroup class
     this.sliderGroup = new SliderGroup(
       10,
       4, // strokeWeight
-      0.2*width, // r
+      0.2 * width, // r
       1, // a
       1, // b
       8, // m
@@ -33,7 +28,7 @@ class AddControls {
       1, // n2
       1, // n3
       1, // n
-      0, // shape angle
+      0 // shape angle
     );
     this.sliders = this.sliderGroup.sliders;
     this.sliderValues = this.sliderGroup.getValues();
@@ -46,7 +41,7 @@ class AddControls {
     this.addStroke.position(pos, 230);
     this.addStroke.style("color", "white");
     // Checkbox to determine whether shapes are filled
-    this.fillShape = createCheckbox("Fill shape", true);
+    this.fillShape = createCheckbox("Fill shape", false);
     this.fillShape.position(pos, 260);
     this.fillShape.style("color", "white");
     this.values = [];
