@@ -140,8 +140,8 @@ class Shape {
         this.a * sin(theta) +
         this.b * sqrt(1 - p * pow(cos(theta), 2)) +
         this.m * sqrt(1 - q * pow(cos(theta), 2));
-      let x = this.r * r * cos(theta);
-      let y = this.r * r * sin(theta);
+      let x = 0.5 * this.r * r * cos(theta);
+      let y = 0.5 * this.r * r * sin(theta);
       this.points.push(createVector(x, y));
     }
   }
