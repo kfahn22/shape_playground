@@ -15,31 +15,31 @@ class ShapeUI {
   setupDropdown() {
     const shapes = [
       "Arc",
-      "Astroid",
-      "Bicorn",
-      "Box",
-      "Butterfly",
-      "Cannibus",
+      // "Astroid",
+      // "Bicorn",
+      // "Box",
+      // "Butterfly",
+      // "Cannibus",
       "Cassini Oval",
-      "Ceva",
+      // "Ceva",
       "Cornu Spiral",
       "Craniod",
-      "Deltoid",
-      "Eight",
+      // "Deltoid",
+      // "Eight",
       "Flower",
       "Gear",
-      "Heart",
+      // "Heart",
       "Kiss Curve",
-      "Knot",
+      // "Knot",
       "Lissajous",
       "Maltese Cross",
-      "Quadrifolium",
+      // "Quadrifolium",
       "Quadrilateral",
       "Spiral",
       "Superellipse",
       "Supershape",
-      "Tear Drop",
-      "Zigzag",
+      // "Tear Drop",
+      // "Zigzag",
     ];
 
     // Add shape options to the dropdown
@@ -50,17 +50,25 @@ class ShapeUI {
   // Create a shape based on the selected option
   selectShape(shapeName, values) {
     let r = values[0]; 
+    let a = values[1];
+    let b = values[2];
+    let m = values[3];
+    let n1 = values[4];
+    let n2 = values[5];
+    let n3 = values[6];
+    let n = values[7];
+    let rotateShape = values[8];
     // Create a new Shape object with necessary parameters
     this.shape = new Shape(
-      values[0], // radius
-      values[1], // a
-      values[2], // b
-      values[3], // m
-      values[4], // n1
-      values[5], // n2
-      values[6], // n3
-      values[7], // n
-      values[8] // rotateShape
+      r, 
+      a, 
+      b, 
+      m, 
+      n1, 
+      n2, 
+      n3,
+      n, 
+      rotateShape
     );
 
     this.shape.points = []; // Clear any existing points
@@ -70,77 +78,42 @@ class ShapeUI {
       case "Arc":
         this.shape.arc();
         this.addMessage = true;
-        this.message = "Arc is a f(a), a = 2 yields a circle";
-        break;
-      case "Astroid":
-        this.shape.astroid();
-        this.addMessage = true;
-        this.message = "The astroid is a f(a).";
-        break;
-      case "Bicorn":
-        this.shape.bicorn();
-        break;
-      case "Box":
-        this.shape.box();
-        break;
-      case "Butterfly":
-        this.shape.butterfly();
-        break;
-      case "Cannibus":
-        this.shape.cannibus();
+        this.message = "Arc is a f(a), a = 2 yields a circle. Start: a=1.";
         break;
       case "Cassini Oval":
         this.shape.cassiniOval();
         this.addMessage = true;
-        this.message = "The cassini oval curve is a f(a, b).";
-        break;
-      case "Ceva":
-        this.shape.ceva();
+        this.message = "The cassini oval curve is a f(a, b). Start a = 0.7, b = 1.";
         break;
       case "Cornu Spiral":
         this.shape.cornuSpiral();
         this.addMessage = true;
-        this.message = "The cornu spiral is f(a), a ~ [0.5, 2]";
+        this.message = "The cornu spiral is f(a), a ~ [0.5, 2]. Start a=2.";
         break;
       case "Craniod":
         this.shape.craniod();
         this.addMessage = true;
-        this.message = "The craniod curve is a f(a, b, m).";
-        break;
-      case "Deltoid":
-        this.shape.deltoid();
-        break;
-      case "Eight":
-        this.shape.eight();
+        this.message = "The craniod curve is a f(a, b, m). Start: a=1, b=3, m=0";
         break;
       case "Gear":
         this.shape.gear();
         this.addMessage = true;
-        this.message = "The gear curve is a f(a, b, m).";
-        break;
-      case "Heart":
-        this.shape.heart();
+        this.message = "The gear curve is a f(a, b, m). Start: a=1, b=m=8.";
         break;
       case "Kiss Curve":
         this.shape.kissCurve();
         this.addMessage = true;
-        this.message = "The kiss curve is a f(a, b).";
-        break;
-      case "Knot":
-        this.shape.knot();
+        this.message = "The kiss curve is a f(a, b).Start: a=2, b=1.";
         break;
       case "Lissajous":
         this.shape.lissajous();
         this.addMessage = true;
-        this.message = "The lissajous curve is a f(a, b, m).";
+        this.message = "The lissajous curve is a f(a, b, m). Start: a = 4; b=4, m=8.";
         break;
       case "Maltese Cross":
         this.shape.malteseCross();
         this.addMessage = true;
-        this.message = "The cross curve is a f(a, b).";
-        break;
-      case "Quadrifolium":
-        this.shape.quadrifolium();
+        this.message = "The cross curve is a f(a, b). Start: a=3, b=2.";
         break;
       case "Quadrilateral":
         this.shape.quadrilaterial();
@@ -152,28 +125,22 @@ class ShapeUI {
         // Can also create flower using Gear curve 
         this.shape.flower();
         this.addMessage = true;
-        this.message = "The flower curve is a f(a, m)";
+        this.message = "The flower curve is a f(a, m). Start a=1.5, m=8;";
         break;
       case "Superellipse":
         this.shape.superellipse();
         this.addMessage = true;
-        this.message = "The superellipse curve is a f(a, b, m).";
+        this.message = "The superellipse curve is a f(a, b, m). Start: a=b=1, m=6.";
         break;
       case "Supershape":
         this.shape.supershape();
         this.addMessage = true;
-        this.message = "The supershape curve is a f(a, b, m, n1, n2, n3).";
+        this.message = "The supershape curve is a f(a, b, m, n1, n2, n3). Start: a=b=n1=n2=n3=1, m=8.";
         break;
       case "Spiral":
         this.shape.spiral();
         this.addMessage = true;
-        this.message = "The spiral is a f(a, n), n ~ [-1, 1]";
-        break;
-      case "Tear Drop":
-        this.shape.tearDrop();
-        break;
-      case "Zigzag":
-        this.shape.zigzag();
+        this.message = "The spiral is a f(a, n), n ~ [-1, 1]. Start a=0.1, n=1." ;
         break;
       default:
         break;
