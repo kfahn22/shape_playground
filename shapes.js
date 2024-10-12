@@ -1,7 +1,9 @@
 const e = 2.71828;
 
 class Shape {
-  constructor(r, a, b, m, n1, n2, n3, n, angle) {
+  constructor(x, y, r, a, b, m, n1, n2, n3, n, d, angle) {
+    this.x = x;
+    this.y = y;
     this.r = r;
     this.a = a;
     this.b = b;
@@ -10,6 +12,7 @@ class Shape {
     this.n3 = n3;
     this.m = m;
     this.n = n;
+    this.d = d;
     this.angle = angle;
     this.points = [];
   }
@@ -26,8 +29,8 @@ class Shape {
   // https://mathworld.wolfram.com/Astroid.html
   astroid() {
     for (let theta = 0; theta < TWO_PI; theta += 0.05) {
-      let x = this.r * this.a * pow(cos(theta), 3);
-      let y = this.r * this.a * pow(sin(theta), 3);
+      let x = this.r * pow(cos(theta), 3);
+      let y = this.r * pow(sin(theta), 3);
       this.points.push(createVector(x, y));
     }
   }
@@ -86,6 +89,7 @@ class Shape {
       this.points.push(createVector(x, y));
     }
   }
+
   ceva() {
     for (let theta = 0; theta < TWO_PI; theta += 0.05) {
       let x = this.r * (cos(3 * theta) + 2 * cos(theta));
@@ -138,10 +142,9 @@ class Shape {
     for (let theta = 0; theta < TWO_PI; theta += 0.05) {
       let r =
         this.a * sin(theta) +
-        this.b * sqrt(1 - p * pow(cos(theta), 2)) +
-        this.m * sqrt(1 - q * pow(cos(theta), 2));
-      let x = 0.5 * this.r * r * cos(theta);
-      let y = 0.5 * this.r * r * sin(theta);
+        this.b * sqrt(1 - p * pow(cos(theta), 2));
+      let x = this.r * r * cos(theta);
+      let y = this.r * r * sin(theta);
       this.points.push(createVector(x, y));
     }
   }
@@ -166,6 +169,17 @@ class Shape {
     }
   }
 
+  // https://thecodingtrain.com/challenges/55-mathematical-rose-patterns
+  // changed to flower
+  flower() {
+    for (let theta = 0; theta < TWO_PI; theta += 0.01) {
+      let r = this.a + cos(this.m * theta);
+      let x = this.r * r * cos(theta);
+      let y = this.r * r * sin(theta);
+      this.points.push(createVector(x, y));
+    }
+  }
+
   // https://mathworld.wolfram.com/GearCurve.html
   // https://help.tc2000.com/m/69445/l/755460-hyperbolic-functions-table
 
@@ -186,16 +200,18 @@ class Shape {
   }
 
   // heart curve equation from https://mathworld.wolfram.com/HeartCurve.html
+  // https://thecodingtrain.com/challenges/134-heart-curve
 
   heart() {
-    let adj = 0.25 * width;
-    for (let theta = 0; theta < 2 * PI; theta += 0.05) {
-      const r =
-        2 -
-        2 * sin(theta) +
-        sin(theta) * (pow(abs(cos(theta)), 0.5) / (sin(theta) + 1.4));
-      const x = this.r * r * cos(theta);
-      const y = -this.r * r * sin(theta) - adj;
+    for (let theta = 0; theta < 2 * PI; theta += 0.1) {
+      const x = 0.1 * this.r * 16 * pow(sin(theta), 3);
+      const y =
+        0.1 *
+        -this.r *
+        (13 * cos(theta) -
+          5 * cos(2 * theta) -
+          2 * cos(3 * theta) -
+          cos(4 * theta));
       this.points.push(createVector(x, y));
     }
   }
@@ -222,6 +238,12 @@ class Shape {
   // https://mathworld.wolfram.com/DumbbellCurve.html
   // https://thecodingtrain.com/challenges/116-lissajous-curve-table
 
+  showLine() {
+    this.points.push(createVector(0, 0));
+    this.points.push(createVector(2 * this.r, 0));
+  }
+
+  // https://thecodingtrain.com/challenges/116-lissajous-curve-table
 
   lissajous() {
     for (let theta = -2 * PI; theta <= 2 * PI; theta += 0.01) {
@@ -251,6 +273,33 @@ class Shape {
     }
   }
 
+  // https://thecodingtrain.com/challenges/55-mathematical-rose-patterns
+  // https://editor.p5js.org/codingtrain/sketches/3kanFIcHd
+
+  reduceDenominator(numerator, denominator) {
+    function rec(a, b) {
+      return b ? rec(b, a % b) : a;
+    }
+    return denominator / rec(numerator, denominator);
+  }
+
+  rose() {
+    let k = this.d / this.m;
+    // let d = 8;
+    // let n = 5;
+    // let k = d/m;
+    for (
+      let theta = 0;
+      theta < TWO_PI * this.reduceDenominator(this.d, this.m);
+      theta += 0.02
+    ) {
+      let r = this.r * cos(k * theta);
+      let x = r * cos(theta);
+      let y = r * sin(theta);
+      this.points.push(createVector(x, y));
+    }
+  }
+
   quadrifolium() {
     let a = 1;
     for (let theta = 0; theta < TWO_PI; theta += 0.05) {
@@ -264,33 +313,6 @@ class Shape {
     for (let theta = 0; theta < TWO_PI; theta += TWO_PI / this.m) {
       let x = this.r * cos(theta);
       let y = this.r * sin(theta);
-      this.points.push(createVector(x, y));
-    }
-  }
-
-  // https://thecodingtrain.com/challenges/55-mathematical-rose-patterns
-
-  // https://mathcurve.com/courbes2d.gb/deltoid/deltoid.shtml
-
-  reduceDenominator(numerator, denominator) {
-    function rec(a, b) {
-      return b ? rec(b, a % b) : a;
-    }
-    return denominator / rec(numerator, denominator);
-  }
-  // changed rose to flower
-  flower() {
-    let b = 1;
-   
-    let k = this.m / b;
-    for (
-      let theta = 0;
-      theta < TWO_PI * this.reduceDenominator(this.m, b);
-      theta += 0.02
-    ) {
-      let r = this.a + cos(k * theta);
-      let x = this.r * r * cos(theta);
-      let y = this.r * r * sin(theta);
       this.points.push(createVector(x, y));
     }
   }
@@ -372,16 +394,17 @@ class Shape {
   // https://mathcurve.com/courbes2d.gb/abdank/abdank.shtml
 
   zigzag() {
-    for (let theta = -PI / 2; theta < (3 / 2) * PI; theta += 0.1) {
-      let r = 1;
-      let x = this.r * r * sin(theta);
-      let y = ((this.r * pow(r, 2)) / 2) * (theta + sin(theta) * cos(theta));
+    for (let theta = -PI / 2; theta < this.a * PI; theta += 0.1) {
+      let x = this.r * sin(theta);
+      let y =
+        ((this.r * pow(this.n, 2)) / 2) * (theta + sin(theta) * cos(theta));
       this.points.push(createVector(x, y));
     }
   }
 
   show() {
     push();
+    translate(this.x * width, this.y * height);
     rotate(this.angle);
     beginShape();
     for (let p of this.points) {
@@ -393,6 +416,7 @@ class Shape {
 
   openShow() {
     push();
+    translate(this.x * width, this.y * height);
     rotate(this.angle);
     beginShape();
     for (let p of this.points) {

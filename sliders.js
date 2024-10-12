@@ -2,6 +2,10 @@ class SliderGroup {
   constructor(
     pos,
     sw,
+    strokeAlpha,
+    fillAlpha,
+    wadj,
+    hadj,
     radius,
     a,
     b,
@@ -10,9 +14,11 @@ class SliderGroup {
     n2,
     n3,
     n,
+    d,
     shapeAngle
   ) {
     // Initialize arrays for sliders and labels
+    this.pos = pos;
     this.sliders = [];
     this.labels = [];
     //this.update = false;
@@ -26,29 +32,46 @@ class SliderGroup {
         step: 0.1,
         label: "StrokeWeight:",
       },
-      { min: 50, max: 400, value: radius, step: 5, label: "Shape radius:" },
+      {
+        min: 100,
+        max: 255,
+        value: strokeAlpha,
+        step: 5,
+        label: "Stroke Alpha:",
+      },
+      { min: 100, max: 255, value: fillAlpha, step: 5, label: "Fill Alpha:" },
+      { min: -0.5, max: 0.5, value: wadj, step: 0.05, label: "Translate x:" },
+      {
+        min: -0.5,
+        max: 0.5,
+        value: hadj,
+        step: 0.05,
+        label: "Translate y:",
+      },
+      { min: 10, max: 400, value: radius, step: 5, label: "Shape radius:" },
       { min: 0, max: 10, value: a, step: 0.1, label: "a:" },
       { min: 0, max: 20, value: b, step: 0.1, label: "b:" },
-      { min: 0, max: 20, value: m, step: 1, label: "m:" },
+      { min: 1, max: 20, value: m, step: 1, label: "m:" },
       { min: 0.25, max: 5, value: n1, step: 0.05, label: "n1:" },
       { min: 0.25, max: 2, value: n2, step: 0.05, label: "n2:" },
       { min: 0.25, max: 2, value: n3, step: 0.05, label: "n3:" },
       { min: -1, max: 1, value: n, step: 0.1, label: "n:" },
+      { min: 1, max: 20, value: d, step: 1, label: "d:" },
       {
         min: -180,
         max: 180,
         value: shapeAngle,
-        step: 1,
+        step: 45,
         label: "Rotate shape:",
       },
     ];
 
     // Create sliders and labels
-    this.createSliders(pos);
+    this.createSliders();
   }
 
   // Create sliders and labels
-  createSliders(pos) {
+  createSliders() {
     for (let i = 0; i < this.sliderProperties.length; i++) {
       // Create slider
       let slider = createSlider(
@@ -59,7 +82,7 @@ class SliderGroup {
       );
       slider.addClass("slider");
       slider.id("mySliders");
-      slider.position(pos, 320 + i * 55);
+      slider.position(this.pos, 260 + i * 55);
       slider.size(200);
       slider.input(() => this.reset());
 
