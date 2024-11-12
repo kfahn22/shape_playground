@@ -1,67 +1,105 @@
 class SliderGroup {
   constructor(
-    pos,
-    sw,
-    strokeAlpha,
-    fillAlpha,
-    wadj,
-    hadj,
-    radius,
-    a,
-    b,
-    m,
-    n1,
-    n2,
-    n3,
-    n,
-    d,
-    shapeAngle
+    values
   ) {
     // Initialize arrays for sliders and labels
-    this.pos = pos;
+    this.pos = values.pos;
     this.sliders = [];
     this.labels = [];
-    //this.update = false;
 
     // Define slider properties
     this.sliderProperties = [
       {
         min: 0.1,
         max: 8,
-        value: sw,
+        value: values.colorVariables.strokeWeight,
         step: 0.1,
         label: "StrokeWeight:",
       },
       {
         min: 100,
         max: 255,
-        value: strokeAlpha,
+        value: values.colorVariables.strokeAlpha,
         step: 5,
         label: "Stroke Alpha:",
       },
-      { min: 100, max: 255, value: fillAlpha, step: 5, label: "Fill Alpha:" },
-      { min: -0.5, max: 0.5, value: wadj, step: 0.05, label: "Translate x:" },
+      {
+        min: 100,
+        max: 255,
+        value: values.colorVariables.fillAlpha,
+        step: 5,
+        label: "Fill Alpha:",
+      },
       {
         min: -0.5,
         max: 0.5,
-        value: hadj,
+        value: values.shapeVariables.wadj,
+        step: 0.05,
+        label: "Translate x:",
+      },
+      {
+        min: -0.5,
+        max: 0.5,
+        value: values.shapeVariables.hadj,
         step: 0.05,
         label: "Translate y:",
       },
-      { min: 10, max: 400, value: radius, step: 5, label: "Shape radius:" },
-      { min: 0, max: 10, value: a, step: 0.1, label: "a:" },
-      { min: 0, max: 20, value: b, step: 0.1, label: "b:" },
-      { min: 1, max: 20, value: m, step: 1, label: "m:" },
-      { min: 0.25, max: 5, value: n1, step: 0.05, label: "n1:" },
-      { min: 0.25, max: 2, value: n2, step: 0.05, label: "n2:" },
-      { min: 0.25, max: 2, value: n3, step: 0.05, label: "n3:" },
-      { min: -1, max: 1, value: n, step: 0.1, label: "n:" },
-      { min: 1, max: 20, value: d, step: 1, label: "d:" },
+      {
+        min: 10,
+        max: 400,
+        value: values.shapeVariables.r,
+        step: 5,
+        label: "Shape radius:",
+      },
+      {
+        min: -1,
+        max: 10,
+        value: values.shapeVariables.a,
+        step: 0.1,
+        label: "a:",
+      },
+      {
+        min: 0,
+        max: 20,
+        value: values.shapeVariables.b,
+        step: 0.1,
+        label: "b:",
+      },
+      { min: 1, max: 20, value: values.shapeVariables.m, step: 1, label: "m:" },
+      {
+        min: 0.25,
+        max: 5,
+        value: values.shapeVariables.n1,
+        step: 0.05,
+        label: "n1:",
+      },
+      {
+        min: 0.25,
+        max: 2,
+        value: values.shapeVariables.n2,
+        step: 0.05,
+        label: "n2:",
+      },
+      {
+        min: 0.25,
+        max: 2,
+        value: values.shapeVariables.n3,
+        step: 0.05,
+        label: "n3:",
+      },
+      {
+        min: -1,
+        max: 1,
+        value: values.shapeVariables.n,
+        step: 0.1,
+        label: "n:",
+      },
+      { min: 1, max: 20, value: values.shapeVariables.d, step: 1, label: "d:" },
       {
         min: -180,
         max: 180,
-        value: shapeAngle,
-        step: 45,
+        value: values.shapeVariables.shapeAngle,
+        step: 15,
         label: "Rotate shape:",
       },
     ];
@@ -82,14 +120,13 @@ class SliderGroup {
       );
       slider.addClass("slider");
       slider.id("mySliders");
-      slider.position(this.pos, 260 + i * 55);
-      slider.size(200);
+      slider.position(this.pos, 300 + i * 55);
+      slider.size(250);
       slider.input(() => this.reset());
 
       // Create label
       let label = createP(this.sliderProperties[i].label);
       label.position(slider.x, slider.y - 35);
-
       label.style("color", "white");
 
       // Store slider and label

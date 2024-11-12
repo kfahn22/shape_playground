@@ -19,9 +19,12 @@ class ShapeUI {
       "Bicorn",
       "Box",
       "Butterfly",
+      "Butterfly2",
       "Cannibus",
       "Cassini Oval",
       "Ceva",
+      "Chrysanthemum",
+      "Clover",
       "Cornu Spiral",
       "Craniod",
       "Deltoid",
@@ -34,6 +37,8 @@ class ShapeUI {
       "Line",
       "Lissajous",
       "Maltese Cross",
+      "Ophiuride",
+      "Pinwheel",
       "Quadrifolium",
       "Quadrilateral",
       "Rose",
@@ -41,6 +46,7 @@ class ShapeUI {
       "Superellipse",
       "Supershape",
       "Tear Drop",
+      "Windmill",
       "Zigzag",
     ];
 
@@ -49,24 +55,22 @@ class ShapeUI {
     this.dropdown.selected(this.choice);
   }
 
-  // sliders - wadj,hadj,level,length,strokeweight, shapeAlpha,sc,rot,rotateShape,a,b,m,n,n1,n2, n3
   // Create a shape based on the selected option
   selectShape(shapeName, values) {
-    let r = values[0];
     // Create a new Shape object with necessary parameters
     this.shape = new Shape(
-      values[0], // x
-      values[1], // y
-      values[2], // radius
-      values[3], // a
-      values[4], // b
-      values[5], // m
-      values[6], // n1
-      values[7], // n2
-      values[8], // n3
-      values[9], // n,
-      values[10], // d
-      radians(values[11]) // rotateShape
+      values.wadj,
+      values.hadj,
+      values.r,
+      values.a,
+      values.b,
+      values.m,
+      values.n1,
+      values.n2,
+      values.n3,
+      values.n,
+      values.d,
+      radians(values.shapeAngle)
     );
 
     this.shape.points = []; // Clear any existing points
@@ -90,6 +94,9 @@ class ShapeUI {
       case "Butterfly":
         this.shape.butterfly();
         break;
+      case "Butterfly2":
+        this.shape.butterfly2();
+        break;
       case "Cannibus":
         this.shape.cannibus();
         break;
@@ -102,6 +109,16 @@ class ShapeUI {
       case "Ceva":
         this.shape.ceva();
         break;
+      case "Chrysanthemum":
+        this.shape.chrysanthemum();
+        this.addMessage = true;
+        this.message = "The chrysanthemum curve is scaled by a, try a = 0.5";
+        break;
+      case "Clover":
+        this.shape.clover();
+        this.addMessage = true;
+        this.message = "The clover curve is a f(m).";
+        break;
       case "Cornu Spiral":
         this.shape.cornuSpiral();
         this.addMessage = true;
@@ -111,7 +128,7 @@ class ShapeUI {
         this.shape.craniod();
         this.addMessage = true;
         this.message =
-          "The craniod curve is a f(a, b). Start: a=1, b=3";
+          "The craniod curve is a f(a, b, m). Start: a=1, b=3, m=0";
         break;
       case "Deltoid":
         this.shape.deltoid();
@@ -147,12 +164,22 @@ class ShapeUI {
         this.shape.lissajous();
         this.addMessage = true;
         this.message =
-          "The lissajous curve is a f(a, b, m). Start: a = 4; b=4, m=8";
+          "The lissajous curve is a f(a, b, m). Start: a = 4; b=3.6, m=8";
         break;
       case "Maltese Cross":
         this.shape.malteseCross();
         this.addMessage = true;
         this.message = "The cross curve is a f(a, b). Start: a=3, b=2";
+        break;
+      case "Ophiuride":
+        this.shape.ophiuride();
+        this.addMessage = true;
+        this.message = "The ophiuride curve is a f(a, b). Start: a=1.6, b=0.6";
+        break;
+      case "Pinwheel":
+        this.shape.pinwheel();
+        this.addMessage = true;
+        this.message = "The pinwheel curve is a f(m, n). Start: m=2, n =1";
         break;
       case "Quadrifolium":
         this.shape.quadrifolium();
@@ -177,7 +204,7 @@ class ShapeUI {
         this.shape.supershape();
         this.addMessage = true;
         this.message =
-          "The supershape curve is a f(a, b, m, n1, n2, n3). Start: a=b=n1=n2=n3=1, m=8";
+          "Supershape curve ~ f(a,b,m,n1,n2,n3). Start: a=b=n1=n2=n3=1, m=8";
         break;
       case "Spiral":
         this.shape.spiral();
@@ -187,10 +214,15 @@ class ShapeUI {
       case "Tear Drop":
         this.shape.tearDrop();
         break;
+      case "Windmill":
+        this.addMessage = true;
+        this.message = "The windmill curve is a f(a, m).";
+        this.shape.windmill();
+        break;
       case "Zigzag":
         this.shape.zigzag();
         this.addMessage = true;
-        this.message = "The zigzag curve is a f(a, n). Start a: 1.5, n=1";
+        this.message = "The zigzag curve is a f(a, n).";
         break;
       default:
         break;
