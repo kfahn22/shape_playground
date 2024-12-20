@@ -29,6 +29,7 @@ class ShapeUI {
       "Craniod",
       "Deltoid",
       "Eight",
+      "Fish",
       "Flower",
       "Gear",
       "Heart",
@@ -135,6 +136,11 @@ class ShapeUI {
         break;
       case "Eight":
         this.shape.eight();
+        break;
+      case "Fish":
+        this.shape.fish();
+        this.addMessage = false;
+        this.message = "The fish curve is a f(";
         break;
       case "Flower":
         this.shape.flower();
