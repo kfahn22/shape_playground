@@ -40,8 +40,8 @@ class ShapeUI {
       "Maltese Cross",
       "Ophiuride",
       "Pinwheel",
+      "Polygon",
       "Quadrifolium",
-      "Quadrilateral",
       "Rose",
       "Spiral",
       "Superellipse",
@@ -187,13 +187,13 @@ class ShapeUI {
         this.addMessage = true;
         this.message = "The pinwheel curve is a f(m, n). Start: m=2, n =1";
         break;
+      case "Polygon":
+        this.shape.polygon();
+        this.addMessage = true;
+        this.message = "The polygon curve is a f(m).";
+        break;
       case "Quadrifolium":
         this.shape.quadrifolium();
-        break;
-      case "Quadrilateral":
-        this.shape.quadrilaterial();
-        this.addMessage = true;
-        this.message = "The quadrilaterial curve is a f(m).";
         break;
       case "Rose":
         this.shape.rose();

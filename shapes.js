@@ -368,19 +368,19 @@ class Shape {
     }
   }
 
+  polygon() {
+    for (let theta = 0; theta < TWO_PI; theta += TWO_PI / this.m) {
+      let x = this.r * cos(theta);
+      let y = this.r * sin(theta);
+      this.points.push(createVector(x, y));
+    }
+  }
+
   quadrifolium() {
     let a = 1;
     for (let theta = 0; theta < TWO_PI; theta += 0.05) {
       let x = this.r * (2 * a * pow(sin(theta), 2) * cos(theta));
       let y = this.r * (2 * a * pow(cos(theta), 2) * sin(theta));
-      this.points.push(createVector(x, y));
-    }
-  }
-
-  quadrilaterial() {
-    for (let theta = 0; theta < TWO_PI; theta += TWO_PI / this.m) {
-      let x = this.r * cos(theta);
-      let y = this.r * sin(theta);
       this.points.push(createVector(x, y));
     }
   }
