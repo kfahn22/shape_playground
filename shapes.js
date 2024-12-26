@@ -136,6 +136,16 @@ class Shape {
     }
   }
 
+  //https://mathcurve.com/courbes2d.gb/poisson/poisson.shtml
+  // https://mathcurve.com/courbes2d.gb/poisson/poisson.shtml
+  fish() {
+    for (let theta = -TWO_PI; theta < TWO_PI; theta += 0.05) {
+      let x = this.r * 0.75 * (cos(theta) + 2 * 2 * cos(theta / 2));
+      let y = this.r * 1.0 * sin(theta);
+      this.points.push(createVector(x, y));
+    }
+  }
+
   // https://mathcurve.com/courbes2d.gb/cornu/cornu.shtml
 
   // https://virtualmathmuseum.org/Curves/clothoid/kappaCurve.html
@@ -204,6 +214,15 @@ class Shape {
     for (let theta = 0; theta < TWO_PI; theta += 0.05) {
       let x = this.r * a * sin(theta);
       let y = this.r * a * sin(theta) * cos(theta);
+      this.points.push(createVector(x, y));
+    }
+  }
+
+  // https://mathcurve.com/courbes2d.gb/poisson/poisson.shtml
+  fish() {
+    for (let theta = -TWO_PI; theta < TWO_PI; theta += 0.05) {
+      let x = this.r * 0.75 * (cos(theta) + 2 * 2 * cos(theta / 2));
+      let y = this.r * 1.0 * sin(theta);
       this.points.push(createVector(x, y));
     }
   }
@@ -349,19 +368,19 @@ class Shape {
     }
   }
 
+  polygon() {
+    for (let theta = 0; theta < TWO_PI; theta += TWO_PI / this.m) {
+      let x = this.r * cos(theta);
+      let y = this.r * sin(theta);
+      this.points.push(createVector(x, y));
+    }
+  }
+
   quadrifolium() {
     let a = 1;
     for (let theta = 0; theta < TWO_PI; theta += 0.05) {
       let x = this.r * (2 * a * pow(sin(theta), 2) * cos(theta));
       let y = this.r * (2 * a * pow(cos(theta), 2) * sin(theta));
-      this.points.push(createVector(x, y));
-    }
-  }
-
-  quadrilaterial() {
-    for (let theta = 0; theta < TWO_PI; theta += TWO_PI / this.m) {
-      let x = this.r * cos(theta);
-      let y = this.r * sin(theta);
       this.points.push(createVector(x, y));
     }
   }
